@@ -1,0 +1,41 @@
+<%- include('_header'); %>
+
+<!-- Display movie details -->
+<h2>Edit Movie: <%= movie.title %></h2>
+<p>Description: <%= movie.desc %></p>
+<p>Year: <%= movie.releaseYear %></p>
+<p>Genre: <%= movie.genre %></p>
+<p>Rating: <%= movie.rating %></p>
+<p>Review: <%= movie.review %></p>
+
+<!-- Edit form -->
+<form action="/movies/edit-movie/<%= movie._id %>" method="POST">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" value="<%= movie.title %>" required><br><br>
+
+  <label for="desc">Description:</label>
+  <textarea id="desc" name="desc" rows="4" required><%= movie.desc %></textarea><br><br>
+
+  <label for="releaseYear">Release Year:</label>
+  <input type="number" id="releaseYear" name="releaseYear" value="<%= movie.releaseYear %>" required><br><br>
+
+  <label for="genre">Genre:</label>
+  <select id="genre" name="genre" required>
+    <option value="">Select Genre</option>
+    <option value="action" <%= movie.genre === 'action' ? 'selected' : '' %>>Action</option>
+    <option value="comedy" <%= movie.genre === 'comedy' ? 'selected' : '' %>>Comedy</option>
+    <option value="drama" <%= movie.genre === 'drama' ? 'selected' : '' %>>Drama</option>
+    <option value="horror" <%= movie.genre === 'horror' ? 'selected' : '' %>>Horror</option>
+    <option value="romance" <%= movie.genre === 'romance' ? 'selected' : '' %>>Romance</option>
+  </select><br><br>
+
+  <% if (movie.watched) { %>
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" name="rating" min="1" max="5" value="<%= movie.rating %>"><br><br>
+
+    <label for="review">Review:</label>
+    <textarea id="review" name="review" rows="4"><%= movie.review %></textarea><br><br>
+  <% } %>
+
+  <button type="submit">Update Movie</button>
+</form>

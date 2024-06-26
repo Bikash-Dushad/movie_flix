@@ -64,34 +64,57 @@ module.exports.rateAndReview = async function(req, res) {
     }
 }
 
+module.exports.editPage = async (req, res) => {
+    try {
+      const movieId = req.params.id;
+      if (!movieId) {
+        req.flash("error", "Movie not found");
+        return res.redirect('back');
+      }
+  
+      // Find the movie by ID and pass it to the edit view
+      const movie = await Movie.findById(movieId);
+      if (!movie) {
+        req.flash("error", "Movie not found");
+        return res.redirect('back');
+      }
+  
+      res.render('edit', { movie });
+    } catch (error) {
+      console.log("Error in rendering edit page:", error);
+      req.flash("error", "Error rendering edit page");
+      return res.redirect("back");
+    }
+  }
+
 //Edit the movie
 module.exports.editMovie = async (req, res) => {
     try {
-        const movieId = req.params.id;
-        if (!movieId) {
-            console.log("Movie not found");
-            req.flash("error", "Movie not found");
-            return res.redirect('back');
-        }
-
-        // Find the movie by ID and update its details
-        await Movie.findByIdAndUpdate(movieId, {
-            title: req.body.title,
-            desc: req.body.desc,
-            releaseYear: req.body.releaseYear,
-            genre: req.body.genre,
-            rating: req.body.rating,
-            review: req.body.review
-        });
-
-        req.flash("success", "Movie updated successfully");
-        return res.redirect('/'); // Redirect to home or movie list page
+      const movieId = req.params.id;
+      if (!movieId) {
+        console.log("Movie not found");
+        req.flash("error", "Movie not found");
+        return res.redirect('back');
+      }
+  
+      // Find the movie by ID and update its details
+      await Movie.findByIdAndUpdate(movieId, {
+        title: req.body.title,
+        desc: req.body.desc,
+        releaseYear: req.body.releaseYear,
+        genre: req.body.genre,
+        rating: req.body.rating,
+        review: req.body.review
+      });
+  
+      req.flash("success", "Movie updated successfully");
+      return res.redirect('/'); // Redirect to home or movie list page
     } catch (error) {
-        console.log("Error in updating movie:", error);
-        req.flash("error", "Error updating movie");
-        return res.redirect("back");
+      console.log("Error in updating movie:", error);
+      req.flash("error", "Error updating movie");
+      return res.redirect("back");
     }
-}
+  }
 
 
 module.exports.deleteMovie = async (req, res) => {
