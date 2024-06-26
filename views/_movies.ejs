@@ -1,0 +1,73 @@
+<% if (movies && movies.length > 0) { %>
+  <% for(let movie of movies) { %>
+    <!-- Movie title and description -->
+    <h4>Title: <%= movie.title %></h4>
+    <h2>Description: <%= movie.desc %></h2>
+    <small>Year: <%= movie.releaseYear %></small>
+    <small>Genere: <%= movie.genre %></small>
+    <small>Rating: <%= movie.rating %></small>
+    <small>Review: <%= movie.review %></small>
+
+    <!-- Watched status -->
+   <a href="/movies/toggle-status/<%= movie._id %>">
+    <% if(movie.watched) { %>
+      <i class="fas fa-check-circle" style="color: rgb(130, 189, 107)"></i>
+      <% } else { %>
+        <i class="fas fa-times-circle" style="color: rgb(241, 121, 109)"></i>
+      <% } %>
+    </a>
+
+   <% if (movie.watched) { %>
+    <form action="/movies/rate-review/<%= movie._id %>" method="POST">
+        <label for="rating_<%= movie._id %>">Rating:</label>
+        <input type="number" id="rating_<%= movie._id %>" name="rating" min="1" max="5" required>
+        <label for="review_<%= movie._id %>">Review:</label>
+        <textarea id="review_<%= movie._id %>" name="review" rows="4" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+   <% }%>
+
+   <!-- delete movie -->
+    <a href="/movies/delete-movie/?id=<%= movie._id %>" style="text-decoration: none"
+      ><i
+      class="fa-regular fa-trash-can fa-lg"
+      style="color: rgb(241, 121, 109)"
+      ></i>
+    </a>
+
+    <!-- edit movies -->
+    <form action="/movies/edit-movie/<%= movie._id %>" method="POST">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="<%= movie.title %>" required><br><br>
+  
+      <label for="desc">Description:</label>
+      <textarea id="desc" name="desc" rows="4" required><%= movie.desc %></textarea><br><br>
+  
+      <label for="releaseYear">Release Year:</label>
+      <input type="number" id="releaseYear" name="releaseYear" value="<%= movie.releaseYear %>" required><br><br>
+
+      <label for="genre">Genre</label>
+      <select id="genre" name="genre" value="<%= movie.genre %>" required>
+        <option value="">Select Genre</option>
+        <option value="action">Action</option>
+        <option value="comedy">Comedy</option>
+        <option value="drama">Drama</option>
+        <option value="horror">Horror</option>
+        <option value="romance">Romance</option>
+      </select>
+      
+      <% if (movie.watched) { %>
+          <label for="rating">Rating:</label>
+          <input type="number" id="rating" name="rating" min="1" max="5" value="<%= movie.rating %>"><br><br>
+  
+          <label for="review">Review:</label>
+          <textarea id="review" name="review" rows="4"><%= movie.review %></textarea><br><br>
+      <% } %>
+  
+      <button type="submit">Update Movie</button>
+  </form>
+  <% } %>
+
+<% } else { %>
+<p>No movies found.</p>
+<% } %>
