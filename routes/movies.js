@@ -9,4 +9,6 @@ router.post('/rate-review/:id', moviesController.rateAndReview);
 router.get('/edit/:id', moviesController.editPage);
 router.post('/edit-movie/:id', moviesController.editMovie);
 router.get('/delete-movie', moviesController.deleteMovie)
+router.get('/details/:id', moviesController.movieDetails);
+
 module.exports = router;

@@ -46,23 +46,36 @@ module.exports.toggleWatched = async function(req, res) {
     }
 }
 
-module.exports.rateAndReview = async function(req, res) {
+module.exports.rateAndReview = async (req, res) => {
     try {
-        let movie = await Movie.findById(req.params.id);
-        if (movie && movie.watched) {
-            movie.rating = req.body.rating;
-            movie.review = req.body.review;
-            await movie.save();
-            return res.redirect('back');
-        } else {
-            console.error('Movie not found or not watched');
-            return res.redirect('back');
+        const movieId = req.params.id;
+        const { rating, review } = req.body;
+
+        const movie = await Movie.findById(movieId);
+
+        if (!movie) {
+            req.flash('error', 'Movie not found');
+            return res.redirect('/');
         }
-    } catch (err) {
-        console.error('Error in rating and reviewing movie:', err);
-        return res.redirect('back');
+
+        if (!movie.watched) {
+            req.flash('error', 'You can only rate and review watched movies');
+            return res.redirect(`/movies/details/${movieId}`);
+        }
+
+        movie.rating = rating;
+        movie.review = review;
+
+        await movie.save();
+
+        req.flash('success', 'Review submitted successfully');
+        res.redirect(`/movies/details/${movieId}`);
+    } catch (error) {
+        console.log('Error in submitting review:', error);
+        req.flash('error', 'An error occurred');
+        res.redirect(`/movies/details/${req.params.id}`);
     }
-}
+};
 
 module.exports.editPage = async (req, res) => {
     try {
@@ -136,3 +149,18 @@ module.exports.deleteMovie = async (req, res) => {
         return res.redirect("back");
     }
 }
+
+module.exports.movieDetails = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+        if (!movie) {
+            req.flash('error', 'Movie not found');
+            return res.redirect('/');
+        }
+        res.render('movie_details', { movie });
+    } catch (error) {
+        console.log('Error in fetching movie details:', error);
+        req.flash('error', 'An error occurred');
+        return res.redirect('/');
+    }
+};

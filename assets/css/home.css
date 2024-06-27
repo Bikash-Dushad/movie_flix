@@ -1,0 +1,170 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signin-message {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.movie-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #4cae4c;
+}
+
+.movies-list {
+    margin-top: 30px;
+}
+
+/* Movie List Styles */
+.movie-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.movie-item h4 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.movie-item small {
+    display: block;
+    color: #555;
+}
+
+.movie-item a {
+    text-decoration: none;
+    color: #d9534f;
+}
+
+.movie-item a:hover {
+    color: #c9302c;
+}
+
+.rating-form {
+    margin-top: 15px;
+}
+
+.rating-form label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.rating-form input[type="number"],
+.rating-form textarea {
+    display: inline-block;
+    width: auto;
+    padding: 5px;
+}
+
+.rating-form button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.rating-form button:hover {
+    background-color: #31b0d5;
+}
+
+/* css/home.css */
+
+/* Add this CSS to your existing file */
+.movie-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.movie-link h4,
+.movie-link h2,
+.movie-link small {
+    margin: 0;
+    padding: 0;
+}
+
+.movie-link:hover h4,
+.movie-link:hover h2 {
+    text-decoration: underline;
+}
+
+.rate-review-form {
+    margin-top: 20px;
+}
+
+.rate-review-form .form-group {
+    margin-bottom: 15px;
+}
+
+.rate-review-form label {
+    display: block;
+    font-weight: bold;
+}
+
+.rate-review-form input,
+.rate-review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}

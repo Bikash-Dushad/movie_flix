@@ -1,22 +1,31 @@
+<link rel="stylesheet" href="/css/home.css">
+
 
 <!-- header  -->
 <%- include('_header'); %>
 
-<div>
+<div class="container">
    <!----------- if user is not logged in ----------->
    <% if(!locals.user) { %>
-       <p>Sign-in to add Movies </p>
+       <p class="signin-message">Sign-in to add Movies</p>
    <% }else{ %>
-    <form action="/movies/addMovie" method="post">
+    <form action="/movies/addMovie" method="post" class="movie-form">
+        <div class="form-group">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" required>
+        </div>
 
+        <div class="form-group">
             <label for="description">Description</label>
             <textarea id="description" name="desc" rows="4"></textarea>
+        </div>
 
+        <div class="form-group">
             <label for="releaseYear">Release Year</label>
             <input type="number" id="releaseYear" name="releaseYear" required>
+        </div>
 
+        <div class="form-group">
             <label for="genre">Genre</label>
             <select id="genre" name="genre">
                 <option value="">Select Genre</option>
@@ -26,14 +35,13 @@
                 <option value="horror">Horror</option>
                 <option value="romance">Romance</option>
             </select>
+        </div>
 
-            <button type="submit">Add to WishList</button>
+        <button type="submit" class="submit-button">Add to WishList</button>
     </form>
 
-    <%- include('_movies'); %>
+    <div class="movies-list">
+      <%- include('_movies'); %>
+    </div>
    <% } %>
-
-   
-
-
 </div>

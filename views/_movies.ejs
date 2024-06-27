@@ -1,34 +1,39 @@
+<!-- views/_movies.ejs -->
+
 <% if (movies && movies.length > 0) { %>
   <% for(let movie of movies) { %>
     <!-- Movie title and description -->
-    <h4>Title: <%= movie.title %></h4>
-    <h2>Description: <%= movie.desc %></h2>
-    <small>Year: <%= movie.releaseYear %></small>
-    <small>Genre: <%= movie.genre %></small>
-    <small>Rating: <%= movie.rating %></small>
-    <small>Review: <%= movie.review %></small>
+    <div class="movie-item">
+      <a href="/movies/details/<%= movie._id %>" class="movie-link">
+        <h4>Title: <%= movie.title %></h4>
+        <h2>Description: <%= movie.desc %></h2>
+        <small>Year: <%= movie.releaseYear %></small>
+        <small>Genre: <%= movie.genre %></small>
+        <small>Rating: <%= movie.rating %></small>
+        <small>Review: <%= movie.review %></small>
+      </a>
 
-    <!-- Watched status -->
-    <a href="/movies/toggle-status/<%= movie._id %>">
-      <% if(movie.watched) { %>
-        <i class="fas fa-check-circle" style="color: rgb(130, 189, 107)"></i>
-      <% } else { %>
-        <i class="fas fa-times-circle" style="color: rgb(241, 121, 109)"></i>
-      <% } %>
-    </a>
+      <!-- Watched status -->
+      <a href="/movies/toggle-status/<%= movie._id %>">
+        <% if(movie.watched) { %>
+          <p>Watched : <i class="fas fa-check-circle" style="color: rgb(130, 189, 107)"></i></p>
+        <% } else { %>
+          <p>Watched : <i class="fas fa-times-circle" style="color: rgb(241, 121, 109)"></i></p>
+        <% } %>
+      </a>
 
-    <!-- Edit movie -->
-    <a href="/movies/edit/<%= movie._id %>" style="text-decoration: none;">
-      Edit
-    </a>
+      <!-- Edit movie -->
+      <a href="/movies/edit/<%= movie._id %>" style="text-decoration: none;">
+        Edit
+      </a>
 
-    <!-- Delete movie -->
-    <a href="/movies/delete-movie/?id=<%= movie._id %>" style="text-decoration: none;">
-      <i class="fa-regular fa-trash-can fa-lg" style="color: rgb(241, 121, 109)"></i>
-    </a>
+      <!-- Delete movie -->
+      <a href="/movies/delete-movie/?id=<%= movie._id %>" style="text-decoration: none;">
+        <i class="fa-regular fa-trash-can fa-lg" style="color: rgb(241, 121, 109)"></i>
+      </a>
+    </div>
     <br><br>
   <% } %>
-
 <% } else { %>
   <p>No movies found.</p>
 <% } %>

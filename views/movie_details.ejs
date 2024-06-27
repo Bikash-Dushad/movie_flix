@@ -1,0 +1,48 @@
+<%- include('_header'); %>
+
+<div class="container">
+    <h2>Movie Details</h2>
+    <h4>Title: <%= movie.title %></h4>
+    <p>Description: <%= movie.desc %></p>
+    <small>Year: <%= movie.releaseYear %></small><br>
+    <small>Genre: <%= movie.genre %></small><br>
+    <small>Rating: <%= movie.rating %></small><br>
+    <small>Review: <%= movie.review %></small><br>
+
+    <!-- Watched status -->
+    <p>
+        Watched: 
+        <% if(movie.watched) { %>
+            <i class="fas fa-check-circle" style="color: rgb(130, 189, 107)"></i>
+        <% } else { %>
+            <i class="fas fa-times-circle" style="color: rgb(241, 121, 109)"></i>
+        <% } %>
+    </p>
+
+    <!-- Rating and Review form if movie is watched -->
+    <% if (movie.watched) { %>
+        <form action="/movies/rate-review/<%= movie._id %>" method="POST" class="rate-review-form">
+            <div class="form-group">
+                <label for="rating_<%= movie._id %>">Rating:</label>
+                <input type="number" id="rating_<%= movie._id %>" name="rating" min="1" max="5" required value="<%= movie.rating %>">
+            </div>
+            <div class="form-group">
+                <label for="review_<%= movie._id %>">Review:</label>
+                <textarea id="review_<%= movie._id %>" name="review" rows="4" required><%= movie.review %></textarea>
+            </div>
+            <button type="submit" class="submit-button">Submit Review</button>
+        </form>
+    <% } %>
+
+    <!-- Edit movie -->
+    <a href="/movies/edit/<%= movie._id %>" style="text-decoration: none;">
+        Edit
+    </a>
+
+    <!-- Delete movie -->
+    <a href="/movies/delete-movie/?id=<%= movie._id %>" style="text-decoration: none;">
+        <i class="fa-regular fa-trash-can fa-lg" style="color: rgb(241, 121, 109)"></i>
+    </a>
+
+    <a href="/" style="text-decoration: none;">Back to List</a>
+</div>
